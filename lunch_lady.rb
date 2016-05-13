@@ -50,11 +50,6 @@ def main_dish
 	if @main_dish == 0
 		lunch
 	end
-	description
-end
-
-
-def description
 	puts "Dare to know what's in it? (y/n)"
 	user_input = gets.strip
 		if user_input == 'y'
@@ -64,6 +59,7 @@ def description
 		else
 		end
 end
+
 
 
 @side_choices = []
@@ -80,7 +76,6 @@ def side_dish
 	elsif @side_dish == 4
 	end
 	@side_choices << "#{@sides[@side_dish]}"
-	description	
 		if @side_choices.count <= 1
 		side_dish
 		end
