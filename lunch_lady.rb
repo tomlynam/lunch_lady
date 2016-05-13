@@ -34,7 +34,7 @@
 
 
 def wallet
-	puts "What is your budget? Type 'quit' to skip school"
+	puts "What is your budget? Type 'quit' to cut school"
 	@lunch_money = gets.strip.to_f
 	if @lunch_money == 0
 		exit
@@ -50,6 +50,11 @@ def main_dish
 	if @main_dish == 0
 		lunch
 	end
+	description
+end
+
+
+def description
 	puts "Dare to know what's in it? (y/n)"
 	user_input = gets.strip
 		if user_input == 'y'
@@ -59,7 +64,6 @@ def main_dish
 		else
 		end
 end
-
 
 
 @side_choices = []
@@ -76,6 +80,7 @@ def side_dish
 	elsif @side_dish == 4
 	end
 	@side_choices << "#{@sides[@side_dish]}"
+	description	
 		if @side_choices.count <= 1
 		side_dish
 		end
