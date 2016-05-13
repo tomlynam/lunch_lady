@@ -20,6 +20,18 @@
 	'Beef Jerkey' => 0.5
 }
 
+# main dishes and side items have descriptions with them and the user has an option to view the description before they order (hint: think hashes)
+# descriptions of food can have multiple options like nutritional facts, calories, fat content ect...(hint: think nested hashes)
+# display to the user not only their total but the total fat content / calories / carbs / ect...
+
+@description = { 'Meatloaf' => { calories: 450, fat: '30 grams', carbs: '45 grams'}, 
+				 'Mystery Meat' => { calories: 600, fat: '25 grams', carbs: '20 grams'}, 
+				 'Slop' => { calories: 300, fat: '15 grams', carbs: '40 grams'}, 
+				 'Carrots' => { calories: 450, fat: '6 grams', carbs: '2 grams'}, 
+				 'Mystery Yogurt' => { calories: 450, fat: '50 grams', carbs: '15 grams'}, 
+				 'Beef Jerkey' => { calories: 450, fat: '3 grams', carbs: '5 grams'}, 
+}
+
 
 def wallet
 	puts "What is your budget? Type 'quit' to skip school"
@@ -38,7 +50,17 @@ def main_dish
 	if @main_dish == 0
 		lunch
 	end
+	puts "Dare to know what's in it? (y/n)"
+	user_input = gets.strip
+		if user_input == 'y'
+			puts "#{@description[@mains[@main_dish]][:calories]} calories"
+			puts "#{@description[@mains[@main_dish]][:fat]} of fat"
+			puts "#{@description[@mains[@main_dish]][:carbs]} of carbs"
+		else
+		end
 end
+
+
 
 @side_choices = []
 
@@ -77,7 +99,6 @@ def total
 	end
 end
 
-
 def lunch
 	wallet
 	main_dish
@@ -87,3 +108,7 @@ def lunch
 end
 
 lunch
+
+
+
+
