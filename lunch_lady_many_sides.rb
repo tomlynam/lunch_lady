@@ -47,7 +47,7 @@ def wallet
 end
 
 def main_dish
-	puts "What main dish would you like? Type 'quit' to start over"
+	puts "What main dish would you like? Type 'clear' to start over"
 	puts "1: #{@mains[1]} #{@price['Meatloaf']}"
 	puts "2: #{@mains[2]} #{@price['Mystery Meat']}"
 	puts "3: #{@mains[3]} #{@price['Slop']}"
@@ -66,31 +66,29 @@ def main_dish
 end
 
 
-
 @side_choices = []
 
 # user chooses 2 side dish items
 def side_dish
-	puts "What side dish would you like? Type 'quit' to start over"
+	puts "What side dish would you like? Type 'clear' to start over or '4' to checkout"
 	puts "1: #{@sides[1]} #{@price['Carrots']}"
 	puts "2: #{@sides[2]} #{@price['Mystery Yogurt']}"
 	puts "3: #{@sides[3]} #{@price['Beef Jerkey']}"
 	@side_dish = gets.strip.to_i
+	@side_choices << "#{@sides[@side_dish]}"
 	if @side_dish == 0
 		lunch
 	elsif @side_dish == 4
-	end
-	@side_choices << "#{@sides[@side_dish]}"
-		if @side_choices.count <= 1
+	else
 		side_dish
-		end
+	end
 end
 
 
 # computer repeats users order
 def repeat_order
 	puts "Your order consists of:"
-	puts "#{@mains[@main_dish]}, #{@side_choices[0]}, #{@side_choices[1]}"
+	puts "#{@side_choices.join(", ")}and your main dish, #{@mains[@main_dish]}."
 end
 
 
@@ -113,7 +111,6 @@ def lunch
 end
 
 lunch
-
 
 
 
