@@ -93,8 +93,14 @@ end
 
 
 # computer totals lunch items and displays total
-def total
-	bill = @price[@mains[@main_dish]] + @price[@side_choices[0]] + @price[@side_choices[1]]
+def total	
+	sides_total = []
+	sides_total << @side_choices.map {|i| @price[i] }
+	sides_total.flatten!
+	sides_total.compact!
+	
+	bill = @price[@mains[@main_dish]] + sides_total.reduce(:+)
+
 	puts "Your order total is: #{bill}"
 	if @lunch_money < bill
 		puts "Looks like you don't have enough money. Get back in line!"
@@ -111,6 +117,4 @@ def lunch
 end
 
 lunch
-
-
 
