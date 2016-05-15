@@ -29,12 +29,12 @@
 
 # display to the user not only their total but the total fat content / calories / carbs / ect...
 
-@description = { 'Meatloaf' => { calories: 450, fat: '30 grams', carbs: '45 grams'}, 
-				 'Mystery Meat' => { calories: 600, fat: '25 grams', carbs: '20 grams'}, 
-				 'Slop' => { calories: 300, fat: '15 grams', carbs: '40 grams'}, 
-				 'Carrots' => { calories: 450, fat: '6 grams', carbs: '2 grams'}, 
-				 'Mystery Yogurt' => { calories: 450, fat: '50 grams', carbs: '15 grams'}, 
-				 'Beef Jerkey' => { calories: 450, fat: '3 grams', carbs: '5 grams'}, 
+@description = { 'Meatloaf' => { calories: 450, fat: 30, carbs: 45}, 
+				 'Mystery Meat' => { calories: 600, fat: 25, carbs: 20}, 
+				 'Slop' => { calories: 300, fat: 15, carbs: 40}, 
+				 'Carrots' => { calories: 450, fat: 6, carbs: 2}, 
+				 'Mystery Yogurt' => { calories: 450, fat: 50, carbs: 15}, 
+				 'Beef Jerkey' => { calories: 450, fat: 3, carbs: 5}, 
 }
 
 
@@ -56,9 +56,11 @@ def main_dish
 	if @main_dish == 0
 		lunch
 	elsif @main_dish == 4
-		puts "Meatloaf has #{@description['Meatloaf'][:calories]} calories, #{@description['Meatloaf'][:fat]} of fat and #{@description['Meatloaf'][:carbs]} of carbs."
-		puts "Mystery Meat has #{@description['Mystery Meat'][:calories]} calories, #{@description['Mystery Meat'][:fat]} of fat and #{@description['Mystery Meat'][:carbs]} of carbs."
-		puts "Slop has #{@description['Slop'][:calories]} calories, #{@description['Slop'][:fat]} of fat and #{@description['Slop'][:carbs]} of carbs."
+		puts "Meatloaf has #{@description['Meatloaf'][:calories]} calories, #{@description['Meatloaf'][:fat]} grams of fat and #{@description['Meatloaf'][:carbs]} grams of carbs."
+		
+		puts "Mystery Meat has #{@description['Mystery Meat'][:calories]} calories, #{@description['Mystery Meat'][:fat]} grams of fat and #{@description['Mystery Meat'][:carbs]} grams of carbs."
+		
+		puts "Slop has #{@description['Slop'][:calories]} calories, #{@description['Slop'][:fat]} grams of fat and #{@description['Slop'][:carbs]} grams of carbs."
 		main_dish
 	end
 	# puts "Dare to know what's in it? (y/n)"
@@ -87,9 +89,9 @@ def side_dish
 	if @side_dish == 0
 		lunch
 	elsif @side_dish == 4
-		puts "Carrots have #{@description['Carrots'][:calories]} calories, #{@description['Carrots'][:fat]} of fat and #{@description['Carrots'][:carbs]} of carbs."
-		puts "Mystery Yogurt has #{@description['Mystery Yogurt'][:calories]} calories, #{@description['Mystery Yogurt'][:fat]} of fat and #{@description['Mystery Yogurt'][:carbs]} of carbs."
-		puts "Beef Jerkey has #{@description['Beef Jerkey'][:calories]} calories, #{@description['Beef Jerkey'][:fat]} of fat and #{@description['Beef Jerkey'][:carbs]} of carbs."
+		puts "Carrots have #{@description['Carrots'][:calories]} calories, #{@description['Carrots'][:fat]} grams of fat and #{@description['Carrots'][:carbs]} grams of carbs."
+		puts "Mystery Yogurt has #{@description['Mystery Yogurt'][:calories]} calories, #{@description['Mystery Yogurt'][:fat]} of grams fat and #{@description['Mystery Yogurt'][:carbs]} grams of carbs."
+		puts "Beef Jerkey has #{@description['Beef Jerkey'][:calories]} calories, #{@description['Beef Jerkey'][:fat]} of grams fat and #{@description['Beef Jerkey'][:carbs]} grams of carbs."
 		side_dish
 	elsif @side_dish == 5
 	else
@@ -106,7 +108,7 @@ end
 
 
 # computer totals lunch items and displays total
-def total	
+def order_total	
 	sides_total = []
 	sides_total << @side_choices.map {|i| @price[i] }
 	sides_total.flatten!
@@ -121,12 +123,55 @@ def total
 	end
 end
 
+
+# display to the user not only their total but the total fat content / calories / carbs / etc.
+def food_total
+
+	# was getting a nil element at the end of the array, for some reason .compact! wouldn't work here
+	@side_choices.pop
+	# print @side_choices
+	# puts @side_choices[0].class
+	# puts @description[@side_choices[0]][:calories]
+
+	# calories
+	calories_total = []
+	calories_total << @side_choices.map {|i| @description[i][:calories] }
+	calories_total.flatten!
+	calories = calories_total.reduce(:+)
+
+	# print calories_total
+	# print calories_total.reduce(:+)
+
+	puts "Total calories is: #{calories} calories" 
+
+	# fat
+	fat_total = []
+	fat_total << @side_choices.map {|i| @description[i][:fat] }
+	fat_total.flatten!
+	fat = fat_total.reduce(:+)
+
+	puts "Total fat is: #{fat} grams" 
+
+
+	# carbs
+	carbs_total = []
+	carbs_total << @side_choices.map {|i| @description[i][:carbs] }
+	carbs_total.flatten!
+	carbs = carbs_total.reduce(:+)
+
+	puts "Total carbs is: #{carbs} grams" 
+
+end
+
+
+
 def lunch
 	wallet
 	main_dish
 	side_dish
 	repeat_order
-	total
+	order_total
+	food_total
 end
 
 lunch
