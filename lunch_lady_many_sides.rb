@@ -51,18 +51,24 @@ def main_dish
 	puts "1: #{@mains[1]} #{@price['Meatloaf']}"
 	puts "2: #{@mains[2]} #{@price['Mystery Meat']}"
 	puts "3: #{@mains[3]} #{@price['Slop']}"
+	puts "4: View Descriptions"
 	@main_dish = gets.strip.to_i
 	if @main_dish == 0
 		lunch
+	elsif @main_dish == 4
+		puts "Meatloaf has #{@description['Meatloaf'][:calories]} calories, #{@description['Meatloaf'][:fat]} of fat and #{@description['Meatloaf'][:carbs]} of carbs."
+		puts "Mystery Meat has #{@description['Mystery Meat'][:calories]} calories, #{@description['Mystery Meat'][:fat]} of fat and #{@description['Mystery Meat'][:carbs]} of carbs."
+		puts "Slop has #{@description['Slop'][:calories]} calories, #{@description['Slop'][:fat]} of fat and #{@description['Slop'][:carbs]} of carbs."
+		main_dish
 	end
-	puts "Dare to know what's in it? (y/n)"
-	user_input = gets.strip
-		if user_input == 'y'
-			puts "#{@description[@mains[@main_dish]][:calories]} calories"
-			puts "#{@description[@mains[@main_dish]][:fat]} of fat"
-			puts "#{@description[@mains[@main_dish]][:carbs]} of carbs"
-		else
-		end
+	# puts "Dare to know what's in it? (y/n)"
+	# user_input = gets.strip
+	# 	if user_input == 'y'
+	# 		puts "#{@description[@mains[@main_dish]][:calories]} calories"
+	# 		puts "#{@description[@mains[@main_dish]][:fat]} of fat"
+	# 		puts "#{@description[@mains[@main_dish]][:carbs]} of carbs"
+	# 	else
+	# 	end
 end
 
 
@@ -70,15 +76,22 @@ end
 
 # user chooses 2 side dish items
 def side_dish
-	puts "What side dish would you like? Type 'clear' to start over or '4' to checkout"
+	puts "What side dish would you like? Type 'clear' to start over"
 	puts "1: #{@sides[1]} #{@price['Carrots']}"
 	puts "2: #{@sides[2]} #{@price['Mystery Yogurt']}"
 	puts "3: #{@sides[3]} #{@price['Beef Jerkey']}"
+	puts "4: View Descriptions"
+	puts "5: Checkout"
 	@side_dish = gets.strip.to_i
 	@side_choices << "#{@sides[@side_dish]}"
 	if @side_dish == 0
 		lunch
 	elsif @side_dish == 4
+		puts "Carrots have #{@description['Carrots'][:calories]} calories, #{@description['Carrots'][:fat]} of fat and #{@description['Carrots'][:carbs]} of carbs."
+		puts "Mystery Yogurt has #{@description['Mystery Yogurt'][:calories]} calories, #{@description['Mystery Yogurt'][:fat]} of fat and #{@description['Mystery Yogurt'][:carbs]} of carbs."
+		puts "Beef Jerkey has #{@description['Beef Jerkey'][:calories]} calories, #{@description['Beef Jerkey'][:fat]} of fat and #{@description['Beef Jerkey'][:carbs]} of carbs."
+		side_dish
+	elsif @side_dish == 5
 	else
 		side_dish
 	end
