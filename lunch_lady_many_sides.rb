@@ -63,14 +63,6 @@ def main_dish
 		puts "Slop has #{@description['Slop'][:calories]} calories, #{@description['Slop'][:fat]} grams of fat and #{@description['Slop'][:carbs]} grams of carbs."
 		main_dish
 	end
-	# puts "Dare to know what's in it? (y/n)"
-	# user_input = gets.strip
-	# 	if user_input == 'y'
-	# 		puts "#{@description[@mains[@main_dish]][:calories]} calories"
-	# 		puts "#{@description[@mains[@main_dish]][:fat]} of fat"
-	# 		puts "#{@description[@mains[@main_dish]][:carbs]} of carbs"
-	# 	else
-	# 	end
 end
 
 
@@ -85,9 +77,11 @@ def side_dish
 	puts "4: View Descriptions"
 	puts "5: Checkout"
 	@side_dish = gets.strip.to_i
-	@side_choices << "#{@sides[@side_dish]}"
 	if @side_dish == 0
 		lunch
+	elsif @side_dish == 1 || @side_dish == 2 || @side_dish == 3
+		@side_choices << "#{@sides[@side_dish]}"
+		side_dish
 	elsif @side_dish == 4
 		puts "Carrots have #{@description['Carrots'][:calories]} calories, #{@description['Carrots'][:fat]} grams of fat and #{@description['Carrots'][:carbs]} grams of carbs."
 		puts "Mystery Yogurt has #{@description['Mystery Yogurt'][:calories]} calories, #{@description['Mystery Yogurt'][:fat]} of grams fat and #{@description['Mystery Yogurt'][:carbs]} grams of carbs."
@@ -103,7 +97,7 @@ end
 # computer repeats users order
 def repeat_order
 	puts "Your order consists of:"
-	puts "#{@side_choices.join(", ")}and your main dish, #{@mains[@main_dish]}."
+	puts "#{@side_choices.join(", ")}, and your main dish, #{@mains[@main_dish]}."
 end
 
 
@@ -111,6 +105,7 @@ end
 def order_total	
 	sides_total = []
 	sides_total << @side_choices.map {|i| @price[i] }
+	# was getting a "can't be coerced into a float" error message here
 	sides_total.flatten!
 	sides_total.compact!
 	
@@ -119,7 +114,7 @@ def order_total
 	puts "Your order total is: #{bill}"
 	if @lunch_money < bill
 		puts "Looks like you don't have enough money. Get back in line!"
-		wallet
+		lunch
 	end
 end
 
@@ -129,18 +124,12 @@ def food_total
 
 	# was getting a nil element at the end of the array, for some reason .compact! wouldn't work here
 	@side_choices.pop
-	# print @side_choices
-	# puts @side_choices[0].class
-	# puts @description[@side_choices[0]][:calories]
-
+	
 	# calories
 	calories_total = []
 	calories_total << @side_choices.map {|i| @description[i][:calories] }
 	calories_total.flatten!
 	calories = calories_total.reduce(:+)
-
-	# print calories_total
-	# print calories_total.reduce(:+)
 
 	puts "Total calories is: #{calories} calories" 
 
@@ -164,7 +153,6 @@ def food_total
 end
 
 
-
 def lunch
 	wallet
 	main_dish
@@ -175,4 +163,3 @@ def lunch
 end
 
 lunch
-
